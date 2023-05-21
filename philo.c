@@ -6,43 +6,52 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/21 18:11:17 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/21 20:26:52 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*roll_dice()
+int primes[10] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
+
+
+void	*roll_dice(void *arg)
 {
-	static int value;
-	int *result;
-	value = (rand() % 6) + 1;
-	result = malloc(sizeof(int));
-	*result = value;
-	printf ("Thread result : %p\n", result);
-	return ((void*) result);
+	sleep(1);
+	int index;
+	index = *(int *)arg;
+	printf ("Thread result : %d\n", primes[index]);
+	return (NULL);
 }
 
 int main(int ac, char **av)
 {
-	int *res;
 	(void) av;
 	if (ac != 1)
 		return (0);
-	srand(time(NULL));
-	pthread_t th;
-	if (pthread_create(&th, NULL, &roll_dice, NULL) != 0)
+	int i = 0;
+	pthread_t th[10];
+	while (i < 10)
 	{
-		return 1;
+		int *a = malloc(sizeof(int));
+		*a = i;
+		if (pthread_create(&th[i], NULL, &roll_dice, &i) != 0)
+		{
+			perror("Faild to create thread");
+		}
+		i++;
 	}
-	if (pthread_join(th, (void**) &res) != 0)
+	i = 0;
+	while (i < 10)
 	{
-		return (2);
+		if (pthread_join(th[i], NULL) != 0)
+		{
+			perror ("Failed to join thread");
+		}
+		i++;
 	}
 	// pthread_mutex_destroy(&mutex);
-	printf ("Main res === %p\n", res);
-	printf ("str === %d\n", *res);
-	free (res);
+	// printf ("str === %d\n", *res);
 	return (0);
 }
 
