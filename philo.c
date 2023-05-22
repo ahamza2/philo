@@ -6,52 +6,59 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/21 20:26:52 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/22 21:36:30 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int primes[10] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
+int fuel = 0;
 
+pthread_mutex_t mutex;
 
-void	*roll_dice(void *arg)
+void	*rool_rool()
 {
-	sleep(1);
-	int index;
-	index = *(int *)arg;
-	printf ("Thread result : %d\n", primes[index]);
+	pthread_mutex_lock(&mutex);
+	printf ("aarab\n");
+	pthread_mutex_unlock(&mutex);
+	return (NULL);
+}
+
+void	*routine()
+{
+	
+	pthread_mutex_lock(&mutex);
+	printf ("hamza\n");
+	pthread_mutex_unlock(&mutex);
 	return (NULL);
 }
 
 int main(int ac, char **av)
 {
-	(void) av;
-	if (ac != 1)
-		return (0);
 	int i = 0;
-	pthread_t th[10];
-	while (i < 10)
+	int j = 0;;
+	j = ft_atoi(av[1]);
+	pthread_mutex_init(&mutex, NULL);
+	pthread_t th[j];
+	if (ac >= 1)
 	{
-		int *a = malloc(sizeof(int));
-		*a = i;
-		if (pthread_create(&th[i], NULL, &roll_dice, &i) != 0)
+		while (i < j)
 		{
-			perror("Faild to create thread");
+			if (i == 1)
+				pthread_create(&th[j], NULL, &rool_rool, NULL);
+			else
+				pthread_create(&th[j], NULL, &routine, NULL);
+			i++;
 		}
-		i++;
-	}
-	i = 0;
-	while (i < 10)
-	{
-		if (pthread_join(th[i], NULL) != 0)
+		i = 0;
+		while (i < j)
 		{
-			perror ("Failed to join thread");
+			pthread_join(th[j], NULL);
+			i++;
 		}
-		i++;
 	}
-	// pthread_mutex_destroy(&mutex);
-	// printf ("str === %d\n", *res);
+	pthread_mutex_destroy(&mutex);
+	// printf ("str === %d\n", );
 	return (0);
 }
 
@@ -105,6 +112,63 @@ int main(int ac, char **av)
 
 
 
+// void	*routine(void *arg)
+// {
+// 	int index;
+// 	index = *(int*)arg;
+// 	printf ("index ====== %d\n", index);
+// 	if (pthread_mutex_trylock(&mutex) == 0)
+// 	{
+// 		sleep (1);
+// 		printf ("good Luck\n");
+// 		pthread_mutex_unlock(&mutex);
+// 	}
+// 	else
+// 	{
+// 		sleep (1);
+// 		printf ("don't get luck\n");
+// 	}
+// 	// if (index == 2)
+// 	// {
+// 	// 	printf ("eting\n");
+// 	// }
+// 	// if (index == 1)
+// 	// {
+// 	// 	printf ("sleeping\n");
+// 	// }
+// 	// if (index == 3) 
+// 	// {
+// 	// 	printf ("hhhhh 3\n");
+// 	// }
+// 		// printf ("hamza\n");
+// 	return (NULL);
+// }
+
+// int main(int ac, char **av)
+// {
+// 	int i = 0;
+// 	int j = 0;;
+// 	j = ft_atoi(av[1]);
+// 	pthread_mutex_init(&mutex, NULL);
+// 	pthread_t th[j];
+// 	if (ac >= 1)
+// 	{
+// 		while (i < j)
+// 		{
+// 			pthread_create(&th[j], NULL, &routine, &i);
+// 			i++;
+// 		}
+// 		i = 0;
+// 		while (i < j)
+// 		{
+// 			pthread_join(th[j], NULL);
+// 			i++;
+// 		}
+// 	}
+// 	pthread_mutex_destroy(&mutex);
+// 	// printf ("str === %d\n", );
+// 	return (0);
+// }
 
 
 // void	*roll_dice()

@@ -6,7 +6,7 @@
 #    By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 18:45:30 by haarab            #+#    #+#              #
-#    Updated: 2023/05/21 17:36:29 by haarab           ###   ########.fr        #
+#    Updated: 2023/05/22 17:10:30 by haarab           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 RM = rm -f
 
-src = philo.c
+src = philo.c libft.c
 
-OBJS = philo.o
+OBJS = philo.o libft.o
 
 all: $(NAME)
 

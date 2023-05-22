@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/22 19:37:53 by haarab           ###   ########.fr       */
+/*   Created: 2023/05/22 16:54:07 by haarab            #+#    #+#             */
+/*   Updated: 2023/05/22 17:07:19 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <pthread.h>
-# include <time.h>
-
-struct s_yo
+int	ft_atoi(char *str)
 {
-	int y;
-} t_yo;
+	int			i;
+	int		n;
+	int		res;
 
-int		ft_atoi(char *str);
-
-#endif
+	i = 0;
+	n = 1;
+	res = 0;
+	while ((str[i] >= 9 && str[i] <= 15) || str[i] == 32)
+	{
+		i++;
+	}
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+		{
+			n *= -1;
+		}
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = (res * 10) + (str[i] - '0');
+		i++;
+	}
+	return (res * n);
+}
