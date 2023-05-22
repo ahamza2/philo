@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/22 21:36:30 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/22 21:45:38 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,24 @@ pthread_mutex_t mutex;
 void	*rool_rool()
 {
 	pthread_mutex_lock(&mutex);
-	printf ("aarab\n");
+	fuel -= 45;
+	printf ("fuel == -45 == %d\n", fuel);
 	pthread_mutex_unlock(&mutex);
 	return (NULL);
 }
 
 void	*routine()
 {
-	
-	pthread_mutex_lock(&mutex);
-	printf ("hamza\n");
-	pthread_mutex_unlock(&mutex);
+	int i;
+	i = 0;
+	while (i < 2)
+	{
+		pthread_mutex_lock(&mutex);
+		fuel += 15;
+		printf ("fuel == +15 == %d\n", fuel);
+		pthread_mutex_unlock(&mutex);
+		i++;
+	}
 	return (NULL);
 }
 
