@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/22 21:45:38 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/22 23:58:15 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,57 +16,46 @@ int fuel = 0;
 
 pthread_mutex_t mutex;
 
-void	*rool_rool()
-{
-	pthread_mutex_lock(&mutex);
-	fuel -= 45;
-	printf ("fuel == -45 == %d\n", fuel);
-	pthread_mutex_unlock(&mutex);
-	return (NULL);
-}
+// void	*rool_rool()
+// {
+// 	pthread_mutex_lock(&mutex);
+// 	fuel += 45;
+// 	printf ("fuel == -45 == %d\n", fuel);
+// 	pthread_mutex_unlock(&mutex);
+// 	return (NULL);
+// }
 
-void	*routine()
+void	*routine(void *args)
 {
-	int i;
-	i = 0;
-	while (i < 2)
-	{
-		pthread_mutex_lock(&mutex);
-		fuel += 15;
-		printf ("fuel == +15 == %d\n", fuel);
-		pthread_mutex_unlock(&mutex);
-		i++;
-	}
+	t_vars *philo = (t_vars *)args;
+	printf("hello ===== %d\n", philo->id);
+	// while ()
+	// if (philo->id == 0)
 	return (NULL);
 }
 
 int main(int ac, char **av)
 {
-	int i = 0;
-	int j = 0;;
-	j = ft_atoi(av[1]);
-	pthread_mutex_init(&mutex, NULL);
-	pthread_t th[j];
-	if (ac >= 1)
+	t_vars *philo;
+	t_var counter;
+	(void)ac;
+	counter.count = ft_atoi(av[1]);
+	// printf("hello ===== %d\n", philo.count);
+	int i;
+	philo = malloc(sizeof(t_vars) * counter.count);
+	i = 0;
+	while (i < counter.count)
 	{
-		while (i < j)
-		{
-			if (i == 1)
-				pthread_create(&th[j], NULL, &rool_rool, NULL);
-			else
-				pthread_create(&th[j], NULL, &routine, NULL);
-			i++;
-		}
-		i = 0;
-		while (i < j)
-		{
-			pthread_join(th[j], NULL);
-			i++;
-		}
+		philo[i].id = i + 1;
+		pthread_create(&philo[i].phil, NULL, &routine, &philo[i]);
+		i++;
 	}
-	pthread_mutex_destroy(&mutex);
-	// printf ("str === %d\n", );
-	return (0);
+	i = 0;
+	while (i < counter.count)
+	{
+		pthread_join(philo[i].phil, NULL);
+		i++;
+	}
 }
 
 
