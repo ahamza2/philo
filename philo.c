@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/28 17:51:03 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/28 21:56:24 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,8 @@ void ft_print(t_vars *philo, char *str)
 	pthread_mutex_unlock(&philo->info->print);
 }
 
-void	*routine(void *args)
+void siiiiiii(t_vars *philo)
 {
-	t_vars *philo;
-	philo = (t_vars *)args;
-	if (philo->id % 2 != 0)
-	{
-		usleep (100);
-	}
 	while (1)
 	{
 		ft_print(philo ,"is thinking");
@@ -41,6 +35,17 @@ void	*routine(void *args)
 		ft_print(philo ,"is sleeping");
 		sleeeeep(philo->info->time_to_sleep);
 	}
+}
+
+void	*routine(void *args)
+{
+	t_vars *philo;
+	philo = (t_vars *)args;
+	if (philo->id % 2 != 0)
+	{
+		usleep (100);
+	}
+	siiiiiii(philo);
 	return (NULL);
 }
 
