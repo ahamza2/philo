@@ -6,16 +6,24 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/28 16:11:25 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/28 17:03:48 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+long ft_time(void)
+{
+	struct timeval time;
+	gettimeofday(&time, NULL);
+	long ms = (time.tv_sec * 1000L) + (time.tv_usec / 1000L);
+	return (ms);
+}
+
 void ft_print(t_vars *philo, char *str)
 {
 	pthread_mutex_lock(&philo->info->print);
-	printf ("0 %d %s\n", philo->id, str);
+	printf ("%ld %d %s\n", (ft_time() - philo->info->time_to_start), philo->id, str);
 	pthread_mutex_unlock(&philo->info->print);
 }
 
@@ -25,7 +33,7 @@ void	*routine(void *args)
 	philo = (t_vars *)args;
 	if (philo->id % 2 != 0)
 	{
-		usleep (200);
+		usleep (600);
 	}
 	while (1)
 	{
@@ -49,6 +57,9 @@ void		check_arg(t_vars *philo, char **av)
 	
 	info = malloc(sizeof(t_var));
 	info->nbr_philo = ft_atoi(av[1]);
+	// info->time_to_dead = ft_atoi(av[2]);
+	// info->time_to_eat = ft_atoi(av[3]);
+	// info->time_to_sleep = ft_atoi(av[4]);
 	philo = malloc(sizeof(t_vars) * info->nbr_philo);
 	i = 0;
 	while (i < info->nbr_philo)
@@ -65,8 +76,8 @@ void		check_arg(t_vars *philo, char **av)
 	}
 	i = 0;
 	pthread_mutex_init(&info->print, NULL);
-
 	i = 0;
+	philo->info->time_to_start = ft_time();
 	while (i < info->nbr_philo)
 	{
 		philo[i].fork_left = (i + 1) % info->nbr_philo;

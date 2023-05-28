@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/28 15:36:33 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/28 16:39:39 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
+# include <sys/time.h>
+
 
 
 typedef struct s_vars
