@@ -6,57 +6,180 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/22 23:58:15 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:16:17 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int fuel = 0;
-
-pthread_mutex_t mutex;
-
-// void	*rool_rool()
-// {
-// 	pthread_mutex_lock(&mutex);
-// 	fuel += 45;
-// 	printf ("fuel == -45 == %d\n", fuel);
-// 	pthread_mutex_unlock(&mutex);
-// 	return (NULL);
-// }
+void ft_print(t_vars *philo, char *str)
+{
+	pthread_mutex_lock(&philo->info->print);
+	printf ("%d %s\n", philo->id, str);
+	pthread_mutex_unlock(&philo->info->print);
+}
 
 void	*routine(void *args)
 {
-	t_vars *philo = (t_vars *)args;
-	printf("hello ===== %d\n", philo->id);
-	// while ()
-	// if (philo->id == 0)
+	t_vars *philo;
+	philo = (t_vars *)args;
+	// if (philo->id %2 != 0)
+	// {
+	// 	usleep (200);
+	// }
+	while (1)
+	{
+		ft_print(philo ,"is thinking");
+		pthread_mutex_lock(&philo->info->fork[philo->fork_right]);
+		ft_print(philo ,"has a fork right");
+		pthread_mutex_lock(&philo->info->fork[philo->fork_right]);
+		ft_print(philo ,"has a fork left");
+		ft_print(philo ,"is eating");
+		pthread_mutex_unlock(&philo->info->fork[philo->fork_left]);
+		pthread_mutex_unlock(&philo->info->fork[philo->fork_right]);
+		ft_print(philo ,"is sleeping");
+		pthread_mutex_lock(&philo->info->fork[philo->fork_right]);
+	}
 	return (NULL);
 }
 
+
+
+
 int main(int ac, char **av)
 {
-	t_vars *philo;
-	t_var counter;
-	(void)ac;
-	counter.count = ft_atoi(av[1]);
-	// printf("hello ===== %d\n", philo.count);
+	t_vars *philo = NULL;
+	t_var	*info = NULL;
 	int i;
-	philo = malloc(sizeof(t_vars) * counter.count);
+	(void)ac;
+	
+	info = malloc(sizeof(t_var));
+	info->nbr_philo = ft_atoi(av[1]);
+	philo = malloc(sizeof(t_vars) * info->nbr_philo);
 	i = 0;
-	while (i < counter.count)
+	while (i < info->nbr_philo)
+	{
+		philo[i].info = info;
+		i++;
+	}
+	while (i < info->nbr_philo)
+	{
+		pthread_mutex_init(info->fork, NULL);
+		i++;
+	}
+	i = 0;
+	pthread_mutex_init(&info->print, NULL);
+	while (i < info->nbr_philo)
 	{
 		philo[i].id = i + 1;
-		pthread_create(&philo[i].phil, NULL, &routine, &philo[i]);
 		i++;
 	}
 	i = 0;
-	while (i < counter.count)
+	while (i < info->nbr_philo)
 	{
-		pthread_join(philo[i].phil, NULL);
+		philo[i].fork_left = (i + 1) % info->nbr_philo;
+		philo[i].fork_right = i;
+		pthread_create(&philo[i].philo, NULL, &routine, &philo[i]);
 		i++;
 	}
+	i = 0;
+	while (i < philo->info->nbr_philo)
+	{
+		pthread_join(philo[i].philo, NULL);
+		i++;
+	}
+	// pthread_exit (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// int main(int ac, char **av)
+// {
+// 	t_vars *philo;
+// 	t_var counter;
+// 	int i;
+// 	(void)ac;
+// 	counter.count = ft_atoi(av[1]);
+// 	// printf("you ++++++++++ %d +++++++++++++++++\n", counter.count);
+// 	// printf("hello ===== %d\n", philo.count);
+// 	i = 0;
+// 	pthread_mutex_init(&mutex, NULL);
+// 	philo = malloc(sizeof(t_vars) * counter.count);
+// 	while (i < counter.count)
+// 	{
+// 		philo[i].id = i + 1;
+// 		pthread_create(&philo[i].phil, NULL, &routine, &philo[i]);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < counter.count)
+// 	{
+// 		pthread_join(philo[i].phil, NULL);
+// 		i++;
+// 	}
+// 	pthread_mutex_destroy(&mutex);
+// 	printf("str ===== %d\n", philo->id);
+// 	pthread_exit (0);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -308,4 +431,136 @@ int main(int ac, char **av)
 // 	pthread_mutex_destroy(&mutex);
 // 	printf ("str === %d\n", mails);
 // 	return (0);
+// }
+
+
+
+
+// int fuel = 0;
+
+// pthread_mutex_t mutex;
+
+
+// void	*routine(void *args)
+// {
+// 	int i;
+// 	i = 1;
+// 	t_philo *philo = (t_philo *)args;
+// 	// t_var counter;
+// 	pthread_mutex_lock(&mutex);
+// 	// // while (1);
+// 	// // {
+// 	// // 	if (philo->id )
+// 	// // }
+// 	// // printf("count ++++++++++ %d +++++++++++++++++\n", you.count);
+	
+// 	// // {
+// 	// 	// if (rand() % 2 != 0)	
+// 	// 		printf("sleeping ++++++++++ %d +++++++++++++++++\n", philo->arg->id);
+// 	// 	// if (rand() % 2 == 0)
+// 	// 	// {
+// 	// 		printf("eating ++++++++++ %d +++++++++++++++++\n", philo->arg->id);
+// 	// 	// }
+// 	// 	// else
+// 	// 	// {
+// 	// 		printf("thinking ++++++++++ %d +++++++++++++++++\n", philo->arg->id);
+
+// 	pthread_mutex_unlock(&mutex);
+// 	return (NULL);
+// }
+
+// int main(int ac, char **av)
+// {
+// 	t_vars *philo;
+// 	t_var counter;
+// 	int i;
+// 	(void)ac;
+// 	counter.count = ft_atoi(av[1]);
+// 	// printf("you ++++++++++ %d +++++++++++++++++\n", counter.count);
+// 	// printf("hello ===== %d\n", philo.count);
+// 	i = 0;
+	
+// 	philo = malloc(sizeof(t_vars) * counter.count);
+// 	while (i < counter.count)
+// 	{
+// 		pthread_mutex_init(&mutex, NULL);
+// 		philo[i].id = i + 1;
+// 		pthread_create(&philo[i].phil, NULL, &routine, &philo[i]);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < counter.count)
+// 	{
+// 		pthread_join(philo[i].phil, NULL);
+// 		i++;
+// 	}
+// 	pthread_mutex_destroy(&mutex);
+// 	printf("str ===== %d\n", philo->id);
+// 	pthread_exit (0);
+// }
+
+
+
+
+
+
+
+
+// int fuel = 0;
+
+// pthread_mutex_t mutex;
+
+// void	*routine(void *args)
+// {
+// 	int i;
+// 	i = 1;
+// 	t_vars *philo = (t_vars *)args;
+// 	pthread_mutex_lock(&mutex);
+// 	// printf("count ++++++++++ %d +++++++++++++++++\n", you.count);
+// 	while (i < philo->id)
+// 	{
+// 		if (rand() % 2 != 0)	
+// 			printf("sleeping ++++++++++ %d +++++++++++++++++\n", philo->id);
+// 		if (rand() % 2 == 0)
+// 		{
+// 			printf("eating ++++++++++ %d +++++++++++++++++\n", philo->id);
+// 			i++;
+// 		}
+// 		else
+// 		{
+// 			printf("thinking ++++++++++ %d +++++++++++++++++\n", philo->id);
+// 		}
+// 		i++;
+// 	}
+// 	pthread_mutex_unlock(&mutex);
+// 	return (NULL);
+// }
+
+// int main(int ac, char **av)
+// {
+// 	t_vars *philo;
+// 	t_var counter;
+// 	int i;
+// 	(void)ac;
+// 	counter.count = ft_atoi(av[1]);
+// 	// printf("you ++++++++++ %d +++++++++++++++++\n", counter.count);
+// 	// printf("hello ===== %d\n", philo.count);
+// 	i = 0;
+// 	pthread_mutex_init(&mutex, NULL);
+// 	philo = malloc(sizeof(t_vars) * counter.count);
+// 	while (i < counter.count)
+// 	{
+// 		philo[i].id = i + 1;
+// 		pthread_create(&philo[i].phil, NULL, &routine, &philo[i]);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < counter.count)
+// 	{
+// 		pthread_join(philo[i].phil, NULL);
+// 		i++;
+// 	}
+// 	pthread_mutex_destroy(&mutex);
+// 	printf("str ===== %d\n", philo->id);
+// 	pthread_exit (0);
 // }
