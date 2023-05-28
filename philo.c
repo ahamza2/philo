@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/28 15:16:17 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/28 16:11:25 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void ft_print(t_vars *philo, char *str)
 {
 	pthread_mutex_lock(&philo->info->print);
-	printf ("%d %s\n", philo->id, str);
+	printf ("0 %d %s\n", philo->id, str);
 	pthread_mutex_unlock(&philo->info->print);
 }
 
@@ -23,35 +23,29 @@ void	*routine(void *args)
 {
 	t_vars *philo;
 	philo = (t_vars *)args;
-	// if (philo->id %2 != 0)
-	// {
-	// 	usleep (200);
-	// }
+	if (philo->id % 2 != 0)
+	{
+		usleep (200);
+	}
 	while (1)
 	{
 		ft_print(philo ,"is thinking");
 		pthread_mutex_lock(&philo->info->fork[philo->fork_right]);
 		ft_print(philo ,"has a fork right");
-		pthread_mutex_lock(&philo->info->fork[philo->fork_right]);
+		pthread_mutex_lock(&philo->info->fork[philo->fork_left]);
 		ft_print(philo ,"has a fork left");
 		ft_print(philo ,"is eating");
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_left]);
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_right]);
 		ft_print(philo ,"is sleeping");
-		pthread_mutex_lock(&philo->info->fork[philo->fork_right]);
 	}
 	return (NULL);
 }
 
-
-
-
-int main(int ac, char **av)
+void		check_arg(t_vars *philo, char **av)
 {
-	t_vars *philo = NULL;
-	t_var	*info = NULL;
+	t_var	*info ;
 	int i;
-	(void)ac;
 	
 	info = malloc(sizeof(t_var));
 	info->nbr_philo = ft_atoi(av[1]);
@@ -62,33 +56,42 @@ int main(int ac, char **av)
 		philo[i].info = info;
 		i++;
 	}
+	i = 0;
+	info->fork = malloc(sizeof(pthread_mutex_t) * info->nbr_philo);
 	while (i < info->nbr_philo)
 	{
-		pthread_mutex_init(info->fork, NULL);
+		pthread_mutex_init(&info->fork[i], NULL);
 		i++;
 	}
 	i = 0;
 	pthread_mutex_init(&info->print, NULL);
-	while (i < info->nbr_philo)
-	{
-		philo[i].id = i + 1;
-		i++;
-	}
+
 	i = 0;
 	while (i < info->nbr_philo)
 	{
 		philo[i].fork_left = (i + 1) % info->nbr_philo;
 		philo[i].fork_right = i;
+		philo[i].id = i + 1;
 		pthread_create(&philo[i].philo, NULL, &routine, &philo[i]);
 		i++;
 	}
 	i = 0;
-	while (i < philo->info->nbr_philo)
+	while (i < info->nbr_philo)
 	{
 		pthread_join(philo[i].philo, NULL);
 		i++;
 	}
-	// pthread_exit (0);
+}
+
+
+int main(int ac, char **av)
+{
+	t_vars *philo = NULL;
+	(void)ac;
+	
+	check_arg(philo, av);
+	
+	pthread_exit (0);
 }
 
 

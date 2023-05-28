@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/28 14:51:37 by haarab           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:36:33 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,43 +41,5 @@ typedef struct s_var
 
 int		ft_atoi(char *str);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// typedef struct s_vars
-// {
-// 	int count;
-// 	int id;
-// 	pthread_t phil;
-// }	t_vars;
-
-// typedef struct s_philo
-// {
-// 	int fock_r;
-// 	t_vars	*arg;
-// 	int fock_l;
-// 	int count;
-// 	pthread_mutex_t fork_r;
-// 	pthread_mutex_t fork_l;
-// }	t_philo;
-
-// typedef struct s_var
-// {
-// 	int count;
-// }	t_var;
-
-int		ft_atoi(char *str);
 
 #endif
