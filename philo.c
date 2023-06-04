@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/04 20:15:16 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/04 20:59:12 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ int siiiiiii(t_vars *philo)
 			tim = ft_deadphilo(philo, time);
 			printf("%ld %d is dead\n", tim, philo->id);
 			// printf ("str === %d\n", ft_deadphilo(philo));
-			return (3);
+			return (1);
 		}
 	}
+	return (0);
 }
 
 void	*routine(void *args)
@@ -56,11 +57,13 @@ void	*routine(void *args)
 	}
 	if (philo->info->nbr_philo == 1)
 	{
-		printf ("is dead\n");
 		return ((void*)1);
 	}
-	siiiiiii(philo);
-	return ((void*)2);
+	int j = siiiiiii(philo);
+	printf ("siii ===== %d", j);
+	// if (siiiiiii(philo) == 1)
+	// 	return ((void*)1);
+	return (NULL);
 }
 
 int		check_arg(t_vars *philo, char **av)
@@ -96,10 +99,12 @@ int		check_arg(t_vars *philo, char **av)
 		philo[i].fork_left = (i + 1) % info->nbr_philo;
 		philo[i].fork_right = i;
 		philo[i].id = i + 1;
-		pthread_create(&philo[i].philo, NULL, &routine, &philo[i]);
+		if (pthread_create(&philo[i].philo, NULL, &routine, &philo[i]) == 1)
+		{
+			return (1);
+		}
 		i++;
 	}
-	// (int)routine;
 	i = 0;
 	while (i < info->nbr_philo)
 	{
@@ -107,7 +112,7 @@ int		check_arg(t_vars *philo, char **av)
 		pthread_join(philo[i].philo, NULL);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 
@@ -119,7 +124,13 @@ int main(int ac, char **av)
 		printf ("Error");
 		return (0);
 	}
-	check_arg(philo, av);
+	int j = check_arg(philo, av);
+	printf ("str ===== %d", j);
+	// if (check_arg(philo, av) == 1)
+	// {
+	// 	printf ("Error");
+	// 	return (0);
+	// }
 }
 
 

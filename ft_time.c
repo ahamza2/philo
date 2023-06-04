@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:50:51 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/04 20:05:56 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/04 20:46:38 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ int ft_deadphilo(t_vars *philo, int time)
 			return (time);
 		}
 	}
-	return (4);
+	return (0);
 }
