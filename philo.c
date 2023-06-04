@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/28 21:56:24 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/04 16:09:09 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void siiiiiii(t_vars *philo)
 	{
 		ft_print(philo ,"is thinking");
 		pthread_mutex_lock(&philo->info->fork[philo->fork_right]);
-		ft_print(philo ,"has a fork right");
+		// ft_print(philo ,"has a fork right");
 		pthread_mutex_lock(&philo->info->fork[philo->fork_left]);
-		ft_print(philo ,"has a fork left");
+		// ft_print(philo ,"has a fork left");
 		ft_print(philo ,"is eating");
-		sleeeeep(philo->info->time_to_eat);
+		sleeeeep (philo->info->time_to_eat);
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_left]);
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_right]);
 		ft_print(philo ,"is sleeping");
@@ -49,17 +49,18 @@ void	*routine(void *args)
 	return (NULL);
 }
 
-void		check_arg(t_vars *philo, char **av)
+int		check_arg(t_vars *philo, char **av)
 {
 	t_var	*info ;
 	int i;
 	
 	info = malloc(sizeof(t_var));
 	info->nbr_philo = ft_atoi(av[1]);
+	philo = malloc(sizeof(t_vars) * info->nbr_philo);
 	info->time_to_dead = ft_atoi(av[2]);
 	info->time_to_eat = ft_atoi(av[3]);
 	info->time_to_sleep = ft_atoi(av[4]);
-	philo = malloc(sizeof(t_vars) * info->nbr_philo);
+	info->time_to_start = ft_time();
 	i = 0;
 	while (i < info->nbr_philo)
 	{
@@ -76,7 +77,6 @@ void		check_arg(t_vars *philo, char **av)
 	i = 0;
 	pthread_mutex_init(&info->print, NULL);
 	i = 0;
-	philo->info->time_to_start = ft_time();
 	while (i < info->nbr_philo)
 	{
 		philo[i].fork_left = (i + 1) % info->nbr_philo;
@@ -88,9 +88,16 @@ void		check_arg(t_vars *philo, char **av)
 	i = 0;
 	while (i < info->nbr_philo)
 	{
+		if (ft_deadphilo(philo) == 0)
+		{
+			printf ("str === %d\n", ft_deadphilo(philo));
+			// pthread_exit (0);
+			return (0);
+		}
 		pthread_join(philo[i].philo, NULL);
 		i++;
 	}
+	return (1);
 }
 
 
@@ -99,9 +106,9 @@ int main(int ac, char **av)
 	t_vars *philo = NULL;
 	(void)ac;
 	
-	check_arg(philo, av);
-	
-	pthread_exit (0);
+	if (check_arg(philo, av) == 0)
+		exit (0);
+	// pthread_exit (0);
 }
 
 

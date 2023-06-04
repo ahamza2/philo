@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:50:51 by haarab            #+#    #+#             */
-/*   Updated: 2023/05/28 17:52:04 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/04 16:11:16 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,19 @@ void sleeeeep(long ti)
 	{
 		usleep(ti / 10);
 	}
+}
+
+int ft_deadphilo(t_vars *philo)
+{
+	long time;
+	while (philo->info->time_to_dead <= philo->info->time_to_eat + philo->info->time_to_sleep)
+	{
+		time = ft_time() - philo->info->time_to_start;
+		if (time >= philo->info->time_to_dead)
+		{
+			printf("%ld %d is dead\n", time, philo->id);
+			return (0);
+		}
+	}
+	return (1);
 }
