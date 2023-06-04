@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/04 16:09:09 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/04 20:15:16 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void ft_print(t_vars *philo, char *str)
 	pthread_mutex_unlock(&philo->info->print);
 }
 
-void siiiiiii(t_vars *philo)
+int siiiiiii(t_vars *philo)
 {
+	long time = 0;
+	long tim = 0;
 	while (1)
 	{
 		ft_print(philo ,"is thinking");
@@ -34,6 +36,13 @@ void siiiiiii(t_vars *philo)
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_right]);
 		ft_print(philo ,"is sleeping");
 		sleeeeep(philo->info->time_to_sleep);
+		if (ft_deadphilo(philo, time) >= philo->info->time_to_dead)
+		{
+			tim = ft_deadphilo(philo, time);
+			printf("%ld %d is dead\n", tim, philo->id);
+			// printf ("str === %d\n", ft_deadphilo(philo));
+			return (3);
+		}
 	}
 }
 
@@ -45,8 +54,13 @@ void	*routine(void *args)
 	{
 		usleep (100);
 	}
+	if (philo->info->nbr_philo == 1)
+	{
+		printf ("is dead\n");
+		return ((void*)1);
+	}
 	siiiiiii(philo);
-	return (NULL);
+	return ((void*)2);
 }
 
 int		check_arg(t_vars *philo, char **av)
@@ -85,15 +99,11 @@ int		check_arg(t_vars *philo, char **av)
 		pthread_create(&philo[i].philo, NULL, &routine, &philo[i]);
 		i++;
 	}
+	// (int)routine;
 	i = 0;
 	while (i < info->nbr_philo)
 	{
-		if (ft_deadphilo(philo) == 0)
-		{
-			printf ("str === %d\n", ft_deadphilo(philo));
-			// pthread_exit (0);
-			return (0);
-		}
+		
 		pthread_join(philo[i].philo, NULL);
 		i++;
 	}
@@ -104,11 +114,12 @@ int		check_arg(t_vars *philo, char **av)
 int main(int ac, char **av)
 {
 	t_vars *philo = NULL;
-	(void)ac;
-	
-	if (check_arg(philo, av) == 0)
-		exit (0);
-	// pthread_exit (0);
+	if (ac <= 5 && ac >= 6)
+	{
+		printf ("Error");
+		return (0);
+	}
+	check_arg(philo, av);
 }
 
 

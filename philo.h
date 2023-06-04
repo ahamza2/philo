@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/04 16:04:08 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/04 19:49:49 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ long int	ft_time(void);
 
 void	sleeeeep(long ti);
 
-int	ft_deadphilo(t_vars *philo);
+int		ft_deadphilo(t_vars *philo, int time);
 
 #endif
