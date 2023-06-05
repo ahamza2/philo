@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/04 19:49:49 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/05 14:25:58 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_vars
 {
 	int nbr_philo;
+	int		met;
 	pthread_mutex_t *fork;
 	pthread_mutex_t print;
 	long int time_to_start;
@@ -36,6 +37,7 @@ typedef struct s_var
 {
 	int id;
 	pthread_t philo;
+	long int akhir_makla;
 	int	fork_left;
 	int fork_right;
 	t_var *info;
@@ -47,6 +49,6 @@ long int	ft_time(void);
 
 void	sleeeeep(long ti);
 
-int		ft_deadphilo(t_vars *philo, int time);
+int		ft_deadphilo(t_vars *philo);
 
 #endif

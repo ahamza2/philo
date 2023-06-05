@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:50:51 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/04 20:46:38 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/05 15:56:39 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,21 @@ void sleeeeep(long ti)
 	}
 }
 
-int ft_deadphilo(t_vars *philo, int time)
+int ft_deadphilo(t_vars *philo)
 {
-	// int id;
-	while (philo->info->time_to_dead <= philo->info->time_to_eat + philo->info->time_to_sleep)
+	long time;
+	int i = 0;
+	while (i < philo->info->nbr_philo)
 	{
-		time = ft_time() - philo->info->time_to_start;
-		if (time >= philo->info->time_to_dead)
+		time = ft_time() - philo[i].akhir_makla;
+		while (time >= philo->info->time_to_dead)
 		{
-			return (time);
+			pthread_mutex_lock(&philo->info->print);
+			printf("%ld %d is dead\n", ft_time() - philo->info->time_to_start, philo[i].id);
+			pthread_mutex_unlock(&philo->info->print);
+			return 1;
 		}
+		i++;
 	}
-	return (0);
+	return 0;
 }
