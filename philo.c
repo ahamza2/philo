@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/05 15:48:09 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/16 23:15:39 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 void ft_print(t_vars *philo, char *str)
 {
 	pthread_mutex_lock(&philo->info->print);
-	printf ("%ld %d %s\n", (ft_time() - philo->info->time_to_start), philo->id, str);
+	if (philo->is_dead == 1)
+	{
+		printf ("%ld %d %s\n", (ft_time() - philo->info->time_to_start), philo->id, str);
+	}
 	pthread_mutex_unlock(&philo->info->print);
 }
 
-int siiiiiii(t_vars *philo)
+void siiiiiii(t_vars *philo)
 {
 	while (1)
 	{
@@ -28,13 +31,15 @@ int siiiiiii(t_vars *philo)
 		ft_print(philo ,"has taken a fork");
 		pthread_mutex_lock(&philo->info->fork[philo->fork_left]);
 		ft_print(philo ,"has taken a fork");
-		philo->akhir_makla = ft_time();
 		ft_print(philo ,"is eating");
-		sleeeeep (philo->info->time_to_eat);
-		pthread_mutex_unlock(&philo->info->fork[philo->fork_left]);
+		pthread_mutex_lock(&philo->info->print);
+		philo->akhir_makla = ft_time();
+		pthread_mutex_unlock(&philo->info->print);
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_right]);
+		sleeeeep (philo->info->time_to_eat, philo);
+		pthread_mutex_unlock(&philo->info->fork[philo->fork_left]);
 		ft_print(philo ,"is sleeping");
-		sleeeeep(philo->info->time_to_sleep);
+		sleeeeep(philo->info->time_to_sleep, philo);
 	}
 }
 
@@ -44,12 +49,9 @@ void	*routine(void *args)
 	philo = (t_vars *)args;
 	if (philo->id % 2 != 0)
 	{
-		usleep (100);
+		// ft_print(philo ,"is thinking");
+		sleeeeep(philo->info->time_to_eat, philo);
 	}
-	// if (philo->info->nbr_philo == 1)
-	// {
-	// 	return ((void*)1);
-	// }
 	siiiiiii(philo);
 	return (NULL);
 }
@@ -58,47 +60,45 @@ int		check_arg(t_vars *philo, char **av)
 {
 	t_var	*info ;
 	int i;
+	// int makla;
 	
 	info = malloc(sizeof(t_var));
 	info->nbr_philo = ft_atoi(av[1]);
 	info->time_to_dead = ft_atoi(av[2]);
 	info->time_to_eat = ft_atoi(av[3]);
 	info->time_to_sleep = ft_atoi(av[4]);
-	i = 0;
-	while (i < info->nbr_philo)
-	{
-		philo[i].info = info;
-		i++;
-	}
-	i = 0;
+	// makla = ft_atoi(av[5]);
 	info->fork = malloc(sizeof(pthread_mutex_t) * info->nbr_philo);
+	i = 0;
 	info->time_to_start = ft_time();
 	while (i < info->nbr_philo)
 	{
 		pthread_mutex_init(&info->fork[i], NULL);
 		i++;
 	}
-	i = 0;
 	pthread_mutex_init(&info->print, NULL);
-	i = 0;
 
+	i = 0;
 	long  t = ft_time();
 	while (i < info->nbr_philo)
 	{
+		philo[i].info = info;
 		philo[i].akhir_makla = t;
 		philo[i].fork_left = (i + 1) % info->nbr_philo;
 		philo[i].fork_right = i;
 		philo[i].id = i + 1;
+		philo[i].is_dead = 1;
+		// philo[i].amount_of_food = makla;
 		pthread_create(&philo[i].philo, NULL, &routine, &philo[i]);
 		i++;
 	}
-	while (1) {
+	while (1)
+	{
 		if (ft_deadphilo(philo) == 1)
-			return 0;
+			return (0);
 	}
 	i = 0;
-
-	
+	i = 0;
 	while (i < philo->info->nbr_philo)
 	{
 		pthread_mutex_destroy(&philo->info->fork[i]);
@@ -111,19 +111,19 @@ int		check_arg(t_vars *philo, char **av)
 		pthread_join(philo[i].philo, NULL);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 
 int main(int ac, char **av)
 {
-	t_vars *philo = NULL;
-	philo = malloc(sizeof(t_vars) * ft_atoi(av[1]));
-	if (ac <= 5 && ac >= 6)
+	if (ac < 5 && ac > 6)
 	{
 		printf ("Error");
 		return (0);
 	}
+	t_vars *philo = NULL;
+	philo = malloc(sizeof(t_vars) * ft_atoi(av[1]));
 	check_arg(philo, av);
 
 	return (0);
