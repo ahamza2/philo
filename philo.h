@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/16 22:40:33 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/17 23:11:45 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ typedef struct s_vars
 	long int time_to_eat;
 	long int time_to_sleep;
 	long int time_to_dead;
+	long int  number_meal;
 }	t_var;
 
 typedef struct s_var
 {
 	int id;
-	pthread_t philo;
 	long int akhir_makla;
+	pthread_t philo;
 	int	fork_left;
 	int fork_right;
 	int is_dead;
@@ -49,7 +50,7 @@ int		ft_atoi(char *str);
 
 long int	ft_time(void);
 
-void	sleeeeep(long ti, t_vars *philo);
+void	sleeeeep(long ti);
 
 int		ft_deadphilo(t_vars *philo);
 
