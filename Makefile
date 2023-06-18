@@ -6,14 +6,14 @@
 #    By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 18:45:30 by haarab            #+#    #+#              #
-#    Updated: 2023/06/17 15:07:47 by haarab           ###   ########.fr        #
+#    Updated: 2023/06/18 13:35:44 by haarab           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
 RM = rm -f
 
 src = philo.c libft.c ft_time.c

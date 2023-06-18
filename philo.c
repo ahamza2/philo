@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/17 23:54:28 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/18 13:37:10 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int		check_arg(t_vars *philo, char **av)
 	info->time_to_eat = ft_atoi(av[3]);
 	info->time_to_sleep = ft_atoi(av[4]);
 	info->number_meal = ft_atoi(av[5]);
+	if (info->number_meal == 0)
+		return 1;
 	info->fork = malloc(sizeof(pthread_mutex_t) * info->nbr_philo);
 	i = 0;
 	info->time_to_start = ft_time();
