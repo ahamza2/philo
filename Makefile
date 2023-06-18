@@ -6,19 +6,19 @@
 #    By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/20 18:45:30 by haarab            #+#    #+#              #
-#    Updated: 2023/06/18 13:35:44 by haarab           ###   ########.fr        #
+#    Updated: 2023/06/18 23:43:28 by haarab           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g
 RM = rm -f
 
-src = philo.c libft.c ft_time.c
+src = philo.c libft.c ft_time.c check_dead.c routine_thread.c ft_print.c
 
-OBJS = philo.o libft.o ft_time.o
+OBJS = philo.o libft.o ft_time.o check_dead.o routine_thread.o ft_print.o
 
 all: $(NAME)
 
