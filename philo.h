@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/18 17:37:57 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/19 22:24:01 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_var
 	t_var *info;
 }	t_vars;
 
-int		ft_atoi(char *str);
+long		ft_atoi(char *str);
 
 long int	ft_time(void);
 

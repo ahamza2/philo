@@ -6,17 +6,17 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:54:07 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/18 23:11:25 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/19 22:31:49 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(char *str)
+long	ft_atoi(char *str)
 {
 	int			i;
-	int		n;
-	int		res;
+	long		n;
+	long		res;
 
 	i = 0;
 	n = 1;
@@ -28,12 +28,14 @@ int	ft_atoi(char *str)
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			printf("Error\n");
-		return 0;
+			return 0;
+		i++;	
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = (res * 10) + (str[i] - '0');
+		if (res > 2147483647)
+			return 0;
 		i++;
 	}
 	return (res * n);

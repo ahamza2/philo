@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:28:37 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/18 23:21:20 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/20 00:42:12 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ int ft_deadphilo(t_vars *philo)
 		pthread_mutex_lock(&philo->info->print);
 		time = ft_time() - philo[i].akhir_makla;
 		pthread_mutex_unlock(&philo->info->print);
-		all_eat = ft_food(philo, all_eat);
-		// printf ("str === %d\n", all_eat);
-		if (all_eat == philo->info->number_meal)
+		if (philo->amount_of_food == 0)
 			return 1;
 		if (time >= philo->info->time_to_dead)
 		{
