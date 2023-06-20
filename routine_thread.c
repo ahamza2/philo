@@ -12,27 +12,27 @@
 
 #include "philo.h"
 
-void siiiiiii(t_vars *philo)
+void	siiiiiii(t_vars *philo)
 {
 	while (philo->amount_of_food != 0)
 	{
 		pthread_mutex_lock(&philo->info->fork[philo->fork_right]);
-		ft_print(philo ,"has taken a fork");
+		ft_print(philo, "has taken a fork");
 		pthread_mutex_lock(&philo->info->fork[philo->fork_left]);
-		ft_print(philo ,"has taken a fork");
+		ft_print(philo, "has taken a fork");
 		// pthread_mutex_lock(&philo->info->print);
-		ft_print(philo ,"is eating");
+		ft_print(philo, "is eating");
 		philo->amount_of_food--;
 		// pthread_mutex_unlock(&philo->info->print);
 		pthread_mutex_lock(&philo->info->print);
 		philo->akhir_makla = ft_time();
 		pthread_mutex_unlock(&philo->info->print);
-		sleeeeep (philo->info->time_to_eat);
+		sleeeeep(philo->info->time_to_eat);
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_right]);
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_left]);
-		ft_print(philo ,"is sleeping");
+		ft_print(philo, "is sleeping");
 		sleeeeep(philo->info->time_to_sleep);
-		ft_print(philo ,"is thinking");
+		ft_print(philo, "is thinking");
 	}
 }
 
@@ -45,11 +45,11 @@ void	*routine(void *args)
 		sleeeeep(philo->info->time_to_eat);
 	}
 	// else if (philo->id % 2 == 0 &&)
-		// printf ("str ==== %ld\n", philo->info->time_to_eat);
-		// sleep (1);
-		// usleep (100);
-		// ft_print(philo ,"is thinking");
+	// printf ("str ==== %ld\n", philo->info->time_to_eat);
+	// sleep (1);
+	// usleep (100);
+	// ft_print(philo ,"is thinking");
 	siiiiiii(philo);
-	
+
 	return (NULL);
 }

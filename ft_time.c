@@ -12,19 +12,19 @@
 
 #include "philo.h"
 
-long int ft_time(void)
+long int	ft_time(void)
 {
-	struct timeval time;
+	struct timeval	time;
+
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000L) + (time.tv_usec / 1000L);
 }
 
-
-void sleeeeep(long ti)
+void	sleeeeep(long ti)
 {
-	long time;
+	long	time;
+
 	time = ft_time();
 	while (ft_time() - time < ti)
-		usleep (ti / 10);
+		usleep(ti / 10);
 }
-

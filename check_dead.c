@@ -14,7 +14,7 @@
 
 int	ft_food(t_vars *philo, int all_eat)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (j < philo->info->nbr_philo && philo->ac == 6)
@@ -32,7 +32,7 @@ int	ft_food(t_vars *philo, int all_eat)
 
 void	all_philoaredead(t_vars *philo)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (j < philo->info->nbr_philo)
@@ -42,7 +42,7 @@ void	all_philoaredead(t_vars *philo)
 	}
 }
 
-int ft_deadphilo(t_vars *philo)
+int	ft_deadphilo(t_vars *philo)
 {
 	long time;
 	int i;
@@ -56,12 +56,13 @@ int ft_deadphilo(t_vars *philo)
 		time = ft_time() - philo[i].akhir_makla;
 		pthread_mutex_unlock(&philo->info->print);
 		if (philo->amount_of_food == 0)
-			return 1;
+			return (1);
 		if (time >= philo->info->time_to_dead)
 		{
 			all_philoaredead(philo);
 			pthread_mutex_lock(&philo->info->print);
-			printf("%ld %d is died\n", ft_time() - philo->info->time_to_start, philo[i].id);
+			printf("%ld %d is died\n", ft_time() - philo->info->time_to_start,
+				philo[i].id);
 			pthread_mutex_unlock(&philo->info->print);
 			return (1);
 		}

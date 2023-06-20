@@ -12,12 +12,13 @@
 
 #include "philo.h"
 
-void ft_print(t_vars *philo, char *str)
+void	ft_print(t_vars *philo, char *str)
 {
 	pthread_mutex_lock(&philo->info->print);
 	if (philo->is_dead == 1)
 	{
-		printf ("%ld %d %s\n", (ft_time() - philo->info->time_to_start), philo->id, str);
+		printf("%ld %d %s\n", (ft_time() - philo->info->time_to_start),
+			philo->id, str);
 	}
 	pthread_mutex_unlock(&philo->info->print);
 }
