@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:54:07 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/19 22:31:49 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:18:22 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 long	ft_atoi(char *str)
 {
-	int i;
-	long n;
-	long res;
+	int		i;
+	long	n;
+	long	res;
 
 	i = 0;
 	n = 1;

@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/20 14:36:59 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/20 17:14:32 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ typedef struct s_var
 {
 	int				id;
 	long int		akhir_makla;
-	pthread_t		philo;
 	int				fork_left;
 	int				fork_right;
 	int				is_dead;
 	int				amount_of_food;
 	int				ac;
+	pthread_t		philo;
 	t_var			*info;
 }					t_vars;
 
@@ -60,6 +60,11 @@ void				*routine(void *args);
 void				init_thread(t_var *info);
 
 void				init_struct(t_var *info, t_vars *philo, int ac, char **av);
+
 void				destroy_mutex(t_vars *philo);
+
 void				join_threads(t_vars *philo);
+
+// void				thread_philo(t_var *info, t_vars *philo);
+
 #endif
