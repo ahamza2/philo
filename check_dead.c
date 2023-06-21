@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:28:37 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/21 19:35:57 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/21 21:29:29 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	all_philoaredead(t_vars *philo)
 	j = 0;
 	while (j < philo->info->nbr_philo)
 	{
+		philo->info->is_dead = 1;
 		philo[j].is_dead = 0;
 		j++;
 	}

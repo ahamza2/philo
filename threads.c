@@ -6,23 +6,26 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:26:29 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/21 19:29:13 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/21 21:03:38 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_thread(t_var *info)
+int	init_thread(t_var *info)
 {
 	int	i;
 
 	i = 0;
 	while (i < info->nbr_philo)
 	{
-		pthread_mutex_init(&info->fork[i], NULL);
+		if (pthread_mutex_init(&info->fork[i], NULL) != 0)
+			return (1);
 		i++;
 	}
-	pthread_mutex_init(&info->print, NULL);
+	if (pthread_mutex_init(&info->print, NULL) != 0)
+		return (1);
+	return (0);
 }
 
 void	init_struct(t_var *info, t_vars *philo, int ac, char **av)
@@ -49,27 +52,32 @@ void	init_struct(t_var *info, t_vars *philo, int ac, char **av)
 	}
 }
 
-void	destroy_mutex(t_vars *philo)
+int	destroy_mutex(t_vars *philo)
 {
 	int	i;
 
 	i = 0;
 	while (i < philo->info->nbr_philo)
 	{
-		pthread_mutex_destroy(&philo->info->fork[i]);
+		if (pthread_mutex_destroy(&philo->info->fork[i]) != 0)
+			return (1);
 		i++;
 	}
-	pthread_mutex_destroy(&philo->info->print);
+	if (pthread_mutex_destroy(&philo->info->print) != 0)
+		return (1);
+	return (0);
 }
 
-void	join_threads(t_vars *philo)
+int	join_threads(t_vars *philo)
 {
 	int	i;
 
 	i = 0;
 	while (i < philo->info->nbr_philo)
 	{
-		pthread_join(philo[i].philo, NULL);
+		if (pthread_join(philo[i].philo, NULL) != 0)
+			return (1);
 		i++;
 	}
+	return (0);
 }

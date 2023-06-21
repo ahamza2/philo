@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/21 19:27:15 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/21 21:14:52 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_vars
 	long int		time_to_eat;
 	long int		time_to_sleep;
 	long int		time_to_dead;
-	long int		number_meal;
+	int				is_dead;
 }					t_var;
 
 typedef struct s_var
@@ -53,11 +53,11 @@ void				ft_print(t_vars *philo, char *str);
 
 long int			ft_time(void);
 
-void				sleeeeep(long ti);
+void				sleeeeep(long ti, t_vars *philo);
 
 long				ft_atoi(char *str);
 
-void				check_arg(t_vars *philo, int ac, char **av);
+int					check_arg(t_vars *philo, int ac, char **av);
 
 int					invalid(char *av);
 
@@ -71,12 +71,12 @@ void				check_rotine(t_vars *philo);
 
 void				*routine(void *args);
 
-void				init_thread(t_var *info);
+int					init_thread(t_var *info);
 
 void				init_struct(t_var *info, t_vars *philo, int ac, char **av);
 
-void				destroy_mutex(t_vars *philo);
+int					destroy_mutex(t_vars *philo);
 
-void				join_threads(t_vars *philo);
+int					join_threads(t_vars *philo);
 
 #endif

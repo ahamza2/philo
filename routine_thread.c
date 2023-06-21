@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:31:54 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/21 19:28:07 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/21 20:23:18 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	check_rotine(t_vars *philo)
 		philo->amount_of_food--;
 		pthread_mutex_unlock(&philo->info->print);
 		time_last_eat(philo);
-		sleeeeep(philo->info->time_to_eat);
+		sleeeeep(philo->info->time_to_eat, philo);
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_right]);
 		pthread_mutex_unlock(&philo->info->fork[philo->fork_left]);
 		ft_print(philo, "is sleeping");
-		sleeeeep(philo->info->time_to_sleep);
+		sleeeeep(philo->info->time_to_sleep, philo);
 		ft_print(philo, "is thinking");
 	}
 }
@@ -55,7 +55,7 @@ void	*routine(void *args)
 	philo = (t_vars *) args;
 	if (philo->id % 2 == 0)
 	{
-		sleeeeep(philo->info->time_to_eat);
+		sleeeeep(philo->info->time_to_eat, philo);
 	}
 	check_rotine(philo);
 	return (NULL);
