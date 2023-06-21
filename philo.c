@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/20 21:51:16 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/21 19:18:33 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,6 @@ int	main(int ac, char **av)
 	philo = malloc(sizeof(t_vars) * ft_atoi(av[1]));
 	if (!philo)
 		return (0);
-	if (ac == 6)
-		philo->ac = ac;
 	check_arg(philo, ac, av);
 	join_threads(philo);
 	destroy_mutex(philo);

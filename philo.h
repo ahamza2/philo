@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:17:44 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/20 17:14:32 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/21 19:27:15 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef struct s_vars
 {
 	int				nbr_philo;
-	int				met;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
 	long int		time_to_start;
@@ -35,25 +34,40 @@ typedef struct s_vars
 typedef struct s_var
 {
 	int				id;
-	long int		akhir_makla;
+	long int		time_last_eat;
 	int				fork_left;
 	int				fork_right;
 	int				is_dead;
 	int				amount_of_food;
-	int				ac;
 	pthread_t		philo;
 	t_var			*info;
 }					t_vars;
 
-long				ft_atoi(char *str);
+void				all_philoaredead(t_vars *philo);
+
+void				philo_dead(t_vars *philo, int i);
+
+int					ft_deadphilo(t_vars *philo);
+
+void				ft_print(t_vars *philo, char *str);
 
 long int			ft_time(void);
 
 void				sleeeeep(long ti);
 
-int					ft_deadphilo(t_vars *philo);
+long				ft_atoi(char *str);
 
-void				ft_print(t_vars *philo, char *str);
+void				check_arg(t_vars *philo, int ac, char **av);
+
+int					invalid(char *av);
+
+int					check_arguments(char **av);
+
+int					max_min(char **str);
+
+void				time_last_eat(t_vars *philo);
+
+void				check_rotine(t_vars *philo);
 
 void				*routine(void *args);
 
@@ -64,7 +78,5 @@ void				init_struct(t_var *info, t_vars *philo, int ac, char **av);
 void				destroy_mutex(t_vars *philo);
 
 void				join_threads(t_vars *philo);
-
-// void				thread_philo(t_var *info, t_vars *philo);
 
 #endif
