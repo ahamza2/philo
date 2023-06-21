@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:28:37 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/21 18:23:24 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/21 19:35:57 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	philo_dead(t_vars *philo, int i)
 	if (philo->info->nbr_philo == 1)
 		pthread_mutex_unlock(&philo->info->fork[0]);
 	pthread_mutex_lock(&philo->info->print);
-	printf("%ld %d is died\n", ft_time() - philo->info->time_to_start,
+	printf("%ld %d died\n", ft_time() - philo->info->time_to_start,
 		philo[i].id);
 	pthread_mutex_unlock(&philo->info->print);
 }
