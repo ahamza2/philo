@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:50:51 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/21 21:13:59 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/21 22:31:24 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sleeeeep(long ti, t_vars *philo)
 		if (philo->info->is_dead == 1)
 		{
 			pthread_mutex_unlock(&philo->info->print);
-			break ;
+			return ;
 		}
 		pthread_mutex_unlock(&philo->info->print);
 		usleep(250);

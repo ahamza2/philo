@@ -6,7 +6,7 @@
 /*   By: haarab <haarab@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:22:52 by haarab            #+#    #+#             */
-/*   Updated: 2023/06/21 21:32:41 by haarab           ###   ########.fr       */
+/*   Updated: 2023/06/21 22:49:01 by haarab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,5 @@ int	main(int ac, char **av)
 		return (0);
 	if (destroy_mutex(philo) == 1)
 		return (0);
-	// system("leaks philo");
-	while (1);
 	return (0);
 }
